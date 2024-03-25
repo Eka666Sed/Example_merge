@@ -24,12 +24,14 @@ internal class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(LOG_TAG, "onCreateView")
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d(LOG_TAG, "onViewCreated")
         buttonSave = view.findViewById(R.id.buttonSave)
         editTextEmail = view.findViewById(R.id.editTextEmail)
         editTextPassword = view.findViewById(R.id.editTextPassword)
@@ -40,6 +42,7 @@ internal class ProfileFragment : Fragment() {
     }
 
     private fun saveUserProfile() {
+        Log.d(LOG_TAG, "saveUserProfile")
         val email = editTextEmail?.text?.toString().orEmpty()
         val password = editTextPassword?.text?.toString().orEmpty()
 
@@ -47,6 +50,7 @@ internal class ProfileFragment : Fragment() {
 
         // Дополнительная логика для обработки сохранения профиля пользователя
         // ...
-        Log.d(LOG_TAG, "Email: $email, hashedPassword: $hashedPassword")
+        Log.d(LOG_TAG, "Email: $email, password: $password")
+        Log.d(LOG_TAG, "hashedPassword: $hashedPassword")
     }
 }
