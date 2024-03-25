@@ -48,7 +48,7 @@ internal class ProfileFragment : Fragment() {
         val email = editTextEmail?.text?.toString().orEmpty()
         val password = editTextPassword?.text?.toString().orEmpty()
 
-        val hashedPassword = UserHashGenerator.generateHashedUUID(password)
+        val hashedPassword = UserHashGenerator.getPasswordHash(password)
 
         // Дополнительная логика для обработки сохранения профиля пользователя
         // ...
@@ -57,7 +57,7 @@ internal class ProfileFragment : Fragment() {
 
     private fun openNextScreen() {
         val password = editTextPassword?.text?.toString().orEmpty()
-        val hashedPassword = UserHashGenerator.generateHashedUUID(password)
+        val hashedPassword = UserHashGenerator.getPasswordHash(password)
 
         val nextFragment = NextFragment.newInstance(hashedPassword)
         parentFragmentManager.beginTransaction()
