@@ -16,6 +16,7 @@ internal class ProfileFragment : Fragment() {
     }
 
     private var buttonSave: Button? = null
+    private var buttonMove: Button? = null
     private var editTextEmail: EditText? = null
     private var editTextPassword: EditText? = null
 
@@ -33,11 +34,15 @@ internal class ProfileFragment : Fragment() {
 
         Log.d(LOG_TAG, "onViewCreated")
         buttonSave = view.findViewById(R.id.buttonSave)
+        buttonMove = view.findViewById(R.id.buttonMove)
         editTextEmail = view.findViewById(R.id.editTextEmail)
         editTextPassword = view.findViewById(R.id.editTextPassword)
 
         buttonSave?.setOnClickListener {
             saveUserProfile()
+        }
+        buttonMove?.setOnClickListener {
+            openNextScreen()
         }
     }
 
@@ -46,11 +51,21 @@ internal class ProfileFragment : Fragment() {
         val email = editTextEmail?.text?.toString().orEmpty()
         val password = editTextPassword?.text?.toString().orEmpty()
 
-        val hashedPassword = UserHashGenerator.generateHashedUUID(password)
+        val hashedPassword = UserHashGenerator.getPasswordHash(password)
 
         // Дополнительная логика для обработки сохранения профиля пользователя
         // ...
         Log.d(LOG_TAG, "Email: $email, password: $password")
         Log.d(LOG_TAG, "hashedPassword: $hashedPassword")
+    }
+
+    private fun openNextScreen() {
+        val password = editTextPassword?.text?.toString().orEmpty()
+        val hashedPassword = UserHashGenerator.getPasswordHash(password)
+
+        val nextFragment = NextFragment.newInstance(hashedPassword)
+        parentFragmentManager.beginTransaction()
+            .add(nextFragment, "NextFragment")
+            .commit()
     }
 }
