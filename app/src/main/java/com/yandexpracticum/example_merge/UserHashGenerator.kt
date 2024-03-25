@@ -11,7 +11,7 @@ internal object UserHashGenerator {
         val i = password + u.toString()
 
         val b = i.toByteArray(StandardCharsets.UTF_8)
-        val d = MessageDigest.getInstance("MD5")
+        val d = MessageDigest.getInstance("SHA-256")
         val bb = d.digest(b)
 
         return bytesToHexString(bb)
